@@ -1,4 +1,4 @@
-# Backend Project for User Management
+# Go-Auth-Service
 
 ## Overview 🚀
 
