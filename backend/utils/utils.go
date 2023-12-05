@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"net/mail"
 
 	"golang.org/x/crypto/bcrypt"
 )
@@ -17,4 +18,12 @@ func HashPassword(password string) (string, error) {
 
 func VerifyPassword(hashedPassword string, candidatePassword string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(candidatePassword))
+}
+
+func ValidMailAddress(address string) (string, bool) {
+	addr, err := mail.ParseAddress(address)
+	if err != nil {
+		return "", false
+	}
+	return addr.Address, true
 }

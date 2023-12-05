@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -54,6 +55,13 @@ func PostUsers(ctx *gin.Context) {
 	}
 
 	if adminUser.Admin {
+
+		if addr, ok := utils.ValidMailAddress(postUser.Email); ok {
+			fmt.Printf("value: %-30s valid email: %-10t address: %s\n", postUser.Email, ok, addr)
+		} else {
+			ctx.JSON(400, "Please provide a valid email address")
+		}
+
 		user := models.User{Name: postUser.Name, Email: postUser.Email, Password: hash, Admin: false}
 		config.DB.Create(&user)
 		ctx.JSON(200, &user)
