@@ -48,6 +48,14 @@ func PostUsers(ctx *gin.Context) {
 
 	// Password Encryption
 	password := postUser.Password
+
+	// check for a valid password
+	checkPass := utils.ValidPassword(password)
+
+	if !checkPass {
+		ctx.JSON(400, "Please provide a valid password Follow these rules upp: at least one upper case letter. low: at least one lower case letter. num: at least one digit. sym: at least one special character. tot: at least eight characters long. No empty string or whitespace.")
+	}
+
 	hash, err := utils.HashPassword(password)
 
 	if err != nil {
@@ -82,7 +90,7 @@ func DeleteUser(ctx *gin.Context) {
 	var deleteUser models.User // get the User to be deleted
 	config.DB.Where("id = ?", userId.Id).First(&deleteUser)
 
-	if user.Admin { // Check if the user had admin previlages
+	if user.Admin { // Check if the user had admin privileges
 		config.DB.Where("id = ?", userId.Id).Delete(&deleteUser)
 		ctx.JSON(200, "User deleted succesfully")
 	} else {

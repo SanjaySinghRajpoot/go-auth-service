@@ -18,3 +18,10 @@ func Test_HashPassword(t *testing.T) {
 
 	assert.Nil(t, error)
 }
+
+func Test_ValidPassword(t *testing.T) {
+
+	checkPass := utils.ValidPassword("Uu@123rrrr")
+
+	assert.Equal(t, true, checkPass)
+}
