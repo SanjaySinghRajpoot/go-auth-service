@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/SanjaySinghRajpoot/backend/utils"
@@ -22,6 +23,8 @@ func Test_HashPassword(t *testing.T) {
 func Test_ValidPassword(t *testing.T) {
 
 	checkPass := utils.ValidPassword("Uu@123rrrr")
+
+	fmt.Println(checkPass)
 
 	assert.Equal(t, true, checkPass)
 }

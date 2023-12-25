@@ -64,11 +64,10 @@ func ValidPassword(password string) bool {
 			return false
 		}
 
-		if !upp || !low || !num || !sym || tot < 8 {
-			return false
-		}
+	}
 
-		fmt.Print(tot)
+	if !upp || !low || !num || !sym || tot < 8 {
+		return false
 	}
 
 	return true
